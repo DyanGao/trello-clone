@@ -3,7 +3,7 @@ import { ColumnContainer, ColumnTitle } from './styles'
 import { AddNewItem } from './AddNewItem'
 
 interface ColumnProps {
-  text?: string | undefined
+  text: string
 }
 
 type PropsWithChildren <P> = P & {
