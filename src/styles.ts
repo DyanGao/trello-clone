@@ -30,6 +30,7 @@ export const CardContainer = styled.div`
   background-color: #ffff;
   cursor: pointer;
   margin-bottem: 0.5rem´;
+  margin: 0.5rem auto;
   padding: 0.5rem 1rem;
   max-width: 300px;
   border-radius: 3px;
