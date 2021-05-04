@@ -10,8 +10,15 @@ export const AppContainer = styled.div`
   width: 100%
 
 `
+interface DragPreviewContainerProps {
+  isHidden?: boolean
+}
 
-export const ColumnContainer = styled.div`
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+  opacity: ${props => (props.isHidden ? 0.2 : 1)}
+`
+
+export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #d4d8db;
   width: 300px;
   min-height: 40px;
@@ -84,3 +91,6 @@ export const NewItemInput = styled.input`
   padding: 0.5rem 1rem;
   width: 100%;
 `
+
+
+

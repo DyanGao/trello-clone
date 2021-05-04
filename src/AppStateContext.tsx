@@ -5,6 +5,7 @@ import {
   findItemIndexById,
   moveItem
 } from './utils/arrayUtils'
+import { DragItem } from './DragItem'
 
 interface Task {
   id: string,
@@ -18,7 +19,8 @@ interface List {
 }
 
 export interface AppState {
-  lists: List[]
+  lists: List[];
+  draggedItem?: DragItem | undefined;
 }
 
 const appData: AppState = {
@@ -79,6 +81,10 @@ type Action =
       hoverIndex: number
     }
   }
+  | {
+    type: "SET_DRAGGED_ITEM"
+    payload: DragItem | undefined
+  }
 
 const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
@@ -122,6 +128,9 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
         ...state,
         lists: moveItem(state.lists, dragIndex, hoverIndex)
       }
+    }
+    case "SET_DRAGGED_ITEM": {
+      return { ...state, draggedItem: action.payload}
     }
     default: {
       return state
