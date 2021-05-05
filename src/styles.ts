@@ -1,3 +1,4 @@
+
 import styled from 'styled-components'
 
 export const AppContainer = styled.div`
@@ -8,14 +9,16 @@ export const AppContainer = styled.div`
   height: 100%;
   padding: 30px;
   width: 100%
-
 `
 interface DragPreviewContainerProps {
   isHidden?: boolean
+  isPreview?: boolean
 }
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${props => (props.isHidden ? 0.2 : 1)}
+  transition: all 0.3s ease-out;
+  transform: ${props => (props.isPreview ? "rotate(5deg)" : undefined)};
+  opacity: ${props => (props.isHidden ? 0 : 1)}
 `
 
 export const ColumnContainer = styled(DragPreviewContainer)`
@@ -36,8 +39,7 @@ export const ColumnTitle = styled.div`
 export const CardContainer = styled.div`
   background-color: #ffff;
   cursor: pointer;
-  margin-bottem: 0.5rem´;
-  margin: 0.5rem auto;
+  margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
   max-width: 300px;
   border-radius: 3px;
@@ -92,5 +94,13 @@ export const NewItemInput = styled.input`
   width: 100%;
 `
 
-
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left:0;
+  pointer-events: none;
+  position:fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+`
 

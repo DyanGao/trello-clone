@@ -8,9 +8,10 @@ import { useDrop } from 'react-dnd'
 import { DragItem } from './DragItem';
 import { isHidden } from './utils/isHidden';
 interface ColumnProps {
-  text: string,
-  index: number,
+  text: string
+  index: number
   id: string
+  isPreview?: boolean
 }
 
 // type PropsWithChildren <P> = P & {
@@ -21,14 +22,12 @@ interface ColumnProps {
 export const Column = ({
   text,
   index,
-  id
+  id,
+  isPreview
 }: ColumnProps) => {
   const { state, dispatch } = useAppState()
   const ref = useRef<HTMLDivElement>(null)
-
-  const { drag } = useItemDrag({ type: 'COLUMN', id, index, text })
-  
-  
+  const { drag } = useItemDrag({ type: 'COLUMN', id, index, text})
 
   const [, drop] = useDrop({
     accept: 'COLUMN',
@@ -41,12 +40,17 @@ export const Column = ({
       dispatch({ type: 'MOVE_LIST', payload: { dragIndex, hoverIndex } })
       item.index = hoverIndex
     }
-    
   })
+
   drag(drop(ref))
 
+
   return (
-    <ColumnContainer ref={ref} isHidden={isHidden(state.draggedItem, "COLUMN", id)}>
+    <ColumnContainer
+      isPreview={isPreview}
+      ref={ref}
+      isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
+    >
       <ColumnTitle>
         {text}
       </ColumnTitle>
