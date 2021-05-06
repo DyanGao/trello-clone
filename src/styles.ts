@@ -1,5 +1,13 @@
-
 import styled from 'styled-components'
+
+interface DragPreviewContainerProps {
+  isHidden?: boolean
+  isPreview?: boolean
+}
+
+type AddItemButtonProps = {
+  dark?: boolean
+}
 
 export const AppContainer = styled.div`
   background-color: #1da1f2;
@@ -8,18 +16,30 @@ export const AppContainer = styled.div`
   flex-direction: row;
   height: 100%;
   padding: 30px;
-  width: 100%
+  width: 100%;
 `
-interface DragPreviewContainerProps {
-  isHidden?: boolean
-  isPreview?: boolean
-}
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
   transition: all 0.3s ease-out;
   transform: ${props => (props.isPreview ? "rotate(5deg)" : undefined)};
-  opacity: ${props => (props.isHidden ? 0 : 1)}
+  opacity: ${props => (props.isHidden ? 0 : 1)};
 `
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number
+    y: number
+  }
+}
+
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>
+  (
+    ({ position: {x, y}}) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`
+    }
+    })
+  )<DragPreviewWrapperProps>``
 
 export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #d4d8db;
@@ -36,7 +56,7 @@ export const ColumnTitle = styled.div`
   font-weight: bold;
 `
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(DragPreviewContainer)`
   background-color: #ffff;
   cursor: pointer;
   margin-bottom: 0.5rem;
@@ -45,9 +65,7 @@ export const CardContainer = styled.div`
   border-radius: 3px;
   box-shadow: #091e4240 0px 1px 0px 0px;
 `
-interface AddItemButtonProps {
-  dark?: boolean
-}
+
 
 export const AddItemButton = styled.button<AddItemButtonProps> `
   background-color: #ffffff3d;
@@ -63,7 +81,6 @@ export const AddItemButton = styled.button<AddItemButtonProps> `
   &:hover {
     background-color: #ffffff52;
   }
-
 `
 
 export const NewItemFormContainer = styled.div`
@@ -82,7 +99,6 @@ export const NewItemButton = styled.button`
   color: #fff;
   padding: 6px 12px;
   text-align: center;
-
 `
 
 export const NewItemInput = styled.input`

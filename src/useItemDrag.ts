@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
 import { DragItem } from './DragItem';
-import { useAppState } from './AppStateContext';
+import { useAppState } from './state/AppStateContext';
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { setDraggedItem } from './state/actions';
 
 export const useItemDrag = (item: DragItem) => {
   const { dispatch } = useAppState()
   const [, drag, preview ] = useDrag({
-    item,
-    begin: () => 
-      dispatch({
-        type: 'SET_DRAGGED_ITEM',
-        payload: item
-      }),
-    end: () => dispatch({type: 'SET_DRAGGED_ITEM', payload:undefined})
+    type: item.type,
+    item: () => {
+      dispatch(setDraggedItem(item))
+      return item
+    },
+    end: () => dispatch(setDraggedItem(null))
   })
   useEffect(() => {
     preview(getEmptyImage(), {captureDraggingState: true})
