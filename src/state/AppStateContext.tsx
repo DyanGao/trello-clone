@@ -1,5 +1,6 @@
 import React, { FC, createContext, useContext } from 'react'
 import { DragItem } from '../DragItem'
+import { Action } from './actions'
 import {
   appStateReducer,
   AppState, 
@@ -59,33 +60,5 @@ export const useAppState = () => {
   return useContext(AppStateContext)
 }
 
-export type Action =
-  | {
-    type: "ADD_LIST"
-    payload: string
-  }
-  | {
-    type: "ADD_TASK"
-    payload: { text: string; listId: string}
-  }
-  | {
-    type: "MOVE_LIST"
-    payload: {
-      draggedId: string
-      hoverId: string
-    }
-  }
-  | {
-    type: "SET_DRAGGED_ITEM"
-    payload: DragItem | null
-  }
-  | {
-    type: "MOVE_TASK"
-    payload: {
-      draggedItemId: string
-      hoveredItemId: string | null
-      sourceColumnId: string
-      targetColumnId: string
-    }
-  }
+
 

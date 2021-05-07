@@ -1,5 +1,5 @@
 import { DragItem } from '../DragItem';
-import { Action } from './AppStateContext'
+import { Action } from './actions'
 import { nanoid } from 'nanoid'
 import {
   findItemIndexById,
